@@ -1,0 +1,64 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.11'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'capston'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	//jpa
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.2'
+
+	//web
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//lombok
+	compileOnly 'org.projectlombok:lombok'
+
+	//mysql
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	//lombok
+	annotationProcessor 'org.projectlombok:lombok'
+
+	//test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+
+	//security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//jwt 인증 용도
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+
+	//redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	//swagger 용도
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+
+	//email check
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
