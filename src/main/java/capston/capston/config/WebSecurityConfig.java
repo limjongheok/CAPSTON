@@ -87,6 +87,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/email/send/auth").permitAll() // 인증코드 체크
                 .antMatchers("/api/saleproduct/find/all").permitAll() // 판매 상품 모두 보기
                 .antMatchers("/api/reissuance/refreshToken").permitAll()// refreshtoken  재 발급
+                .antMatchers("/api/locker/*").permitAll()
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
                 .antMatchers("/api/saleproduct/*").hasRole("USER")
                 .antMatchers("/api/user/*").hasRole("USER")

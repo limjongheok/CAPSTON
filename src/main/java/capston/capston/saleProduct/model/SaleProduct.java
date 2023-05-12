@@ -40,8 +40,9 @@ public class SaleProduct extends BaseTimeEntity {
     @NotNull
     private String imgUrl;
 
+
     @Builder
-    private SaleProduct(long id, User user, String title, String content, String saleProductName, int amount, String imgUrl) {
+    public SaleProduct(long id, User user, String title, String content, String saleProductName, int amount, String imgUrl) {
         this.id = id;
         this.user = user;
         this.title = title;
