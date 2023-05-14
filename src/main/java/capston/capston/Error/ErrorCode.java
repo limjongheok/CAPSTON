@@ -12,8 +12,14 @@ public enum ErrorCode {
     BadAuthenticationCodeException(400,"BadAuthenticationCodeException","일치하지 않는 인증코드입니다"),
     BadParameterException(400,"BadParameterException","잘못된 형식의 데이터 입니다."),
 
+    BadBuyerException(400,"BadBuyerException","잘못된 접근 방식 입니다."),
     BadEmailException(400,"BadEmailException","잘못된 형식의 이메일 입니다"),
     BadPhoneNumberException(400,"BadPhoneNumberException","잘못된 형식의 번호입니다"),
+    BadAssignLockerException(400,"BadAssignException","사물함이 이미 지정 되었습니다"),
+    BadPasswordLockerException(400,"BadPasswordLockerException","사물함 번호가 틀렸습니다."),
+    BadPutLockerException(400,"BadPutLockerException","사물함에 이미 물건이 있습니다."),
+    BadNonConfirmationException(400,"BadNonConfirmationException","상품 주문 제시가 확정 되어있지 않았습니다."),
+    BadConfirmationException(400,"BadConfirmationException","이미 상품 주문 제시가 확정 되었습니다."),
     UnauthorizedException(401,"UnauthorizedException","허용되지 않는 접근입니다."),
 
     UnauthorizedEmailException(401,"UnauthorizedEmailException","인증되지 않은 이메일입니다."),
@@ -23,6 +29,7 @@ public enum ErrorCode {
     NotFoundRefrshTokenException(401,"NotFoundRefreshTokenException","refreshToken이 존재하지 않습니다."),
     NotFoundUserException(404,"NotFoundUserException","계정이 존재하지 않습니다"),
     NotFoundProductException(404,"NotFoundProductException","상품이 존재하지 않습니다"),
+    NotFoundLockerException(404,"NotFoundLockerException","사물함이 존재하지 않습니다"),
 
     NotFoundCartNumDownException(404,"NotFoundException","상품이 1 미만 일 수 없습니다."),
     NotFoundOrderException(404,"NotFoundException","”해당 주문이 존재하지 않습니다.”"),

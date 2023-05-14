@@ -32,6 +32,7 @@ public class SaleProductCreateRequestDTO {
                 .content(this.content)
                 .imgUrl(this.imgUrl)
                 .title(this.title)
+                .offerState(false)
                 .user(user)
                 .build();
     }

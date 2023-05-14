@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Random;
@@ -12,6 +13,7 @@ import java.util.Random;
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Slf4j
 public class LockerCreateRequestDTO {
     @NotBlank
     private  int buildingNum;
@@ -21,7 +23,6 @@ public class LockerCreateRequestDTO {
         return Locker.builder()
                 .lockerPassword(String.valueOf((int)(Math.random()*9999)+1000))
                 .buildingNum(this.buildingNum)
-                .checkDoor(false)
                 .checkProduct(false)
                 .checkAssign(false)
                 .build();

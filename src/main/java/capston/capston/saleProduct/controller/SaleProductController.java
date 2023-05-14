@@ -5,11 +5,14 @@ import capston.capston.saleProduct.dto.saleProductCreateDTO.SaleProductCreateRes
 import capston.capston.saleProduct.dto.saleProductFindAll.SaleProductFindAllResponseDTO;
 import capston.capston.saleProduct.dto.saleProductFindId.SaleProductFindIdResponseDTO;
 import capston.capston.saleProduct.dto.saleProductFindmyDTO.SaleProductFindMyResponseDTO;
-import capston.capston.saleProduct.service.SaleProductCommendServiceImpl;
+import capston.capston.saleProduct.dto.saleProductOrderConfirmationDTO.SaleProductOrderConfirmationRequestDTO;
+import capston.capston.saleProduct.dto.saleProductOrderConfirmationDTO.SaleProductOrderConfirmationResponseDTO;
+import capston.capston.saleProduct.service.SaleProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,7 +24,7 @@ import java.util.Map;
 @Slf4j
 public class SaleProductController {
 
-    private final SaleProductCommendServiceImpl saleProductService;
+    private final SaleProductService saleProductService;
 
 
     // 상품 등록
@@ -41,7 +44,6 @@ public class SaleProductController {
 
 
     // 상품 전체 조회
-
     @GetMapping("/api/saleproduct/find/all")
     public ResponseEntity<?> findAllProduct(){
         List<SaleProductFindAllResponseDTO> saleProductFindAllResponseDTOS = saleProductService.findAllProduct();
@@ -56,6 +58,17 @@ public class SaleProductController {
         return ResponseEntity.ok().body(createResponse(saleProductFindIdResponseDTO,"상품 조회가 성공하였습니다."));
 
     }
+
+    // 상품 주문 확정
+    @PutMapping("/api/saleproduct/order/confirmation/{productId}")
+    public ResponseEntity<?> orderConfirmation(@PathVariable(value = "productId") long productId, @RequestBody SaleProductOrderConfirmationRequestDTO saleProductOrderConfirmationRequestDTO, Authentication authentication){
+
+        SaleProductOrderConfirmationResponseDTO saleProductOrderConfirmationResponseDTO = saleProductService.orderConfirmation(productId, saleProductOrderConfirmationRequestDTO.getOfferPrice(), authentication);
+
+        return ResponseEntity.ok().body(createResponse(saleProductOrderConfirmationResponseDTO,"상품 주문이 확정 되었습니다."));
+    }
+
+
 
     private Map<String,Object> createResponse(Object object, String msg){
         Map<String, Object> response = new HashMap<>();

@@ -10,15 +10,12 @@ import lombok.NoArgsConstructor;
 public class LockerCreateResponseDTO {
 
     private  int buildingNum;
-    private boolean checkDoor;
     private boolean checkProduct;
     private  boolean checkAssign;
 
     @Builder
-
-    private LockerCreateResponseDTO(int buildingNum, boolean checkDoor, boolean checkProduct, boolean checkAssign) {
+    private LockerCreateResponseDTO(int buildingNum, boolean checkProduct, boolean checkAssign) {
         this.buildingNum = buildingNum;
-        this.checkDoor = checkDoor;
         this.checkProduct = checkProduct;
         this.checkAssign = checkAssign;
     }
@@ -27,7 +24,6 @@ public class LockerCreateResponseDTO {
         return  LockerCreateResponseDTO
                 .builder()
                 .buildingNum(locker.getBuildingNum())
-                .checkDoor(locker.isCheckDoor())
                 .checkProduct(locker.isCheckProduct())
                 .checkAssign(locker.isCheckAssign())
                 .build();

@@ -15,6 +15,7 @@ public interface SaleProductQueryServiceImpl {
     List<SaleProduct> findMyProductAll(User user);
 
     List<SaleProduct> findAll();
+    List<SaleProduct> findNotOfferProductAll();
 
     SaleProduct findById(long id);
 }

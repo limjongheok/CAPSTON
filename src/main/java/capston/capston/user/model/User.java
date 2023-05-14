@@ -42,9 +42,8 @@ public class User extends BaseTimeEntity {
     private String phoneNumber;
 
 
-
-
-
+    @Column(nullable = true)
+    private long point;
 
 
     @Setter
@@ -70,5 +69,12 @@ public class User extends BaseTimeEntity {
         this.studentId = studentId;
         this.phoneNumber = phoneNumber;
         this.roles = roles;
+    }
+    public void saleUserPoint(long point){
+        salePoint(point);
+    }
+
+    private void salePoint(long point){
+        this.point =  point;
     }
 }

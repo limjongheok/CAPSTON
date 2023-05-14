@@ -39,3 +39,4 @@ out/
 
 ### env file ###
 *.properties
+application-API-KEY.properties

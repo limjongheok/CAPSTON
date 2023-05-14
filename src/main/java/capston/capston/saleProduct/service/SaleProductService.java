@@ -8,6 +8,7 @@ import capston.capston.saleProduct.dto.saleProductCreateDTO.SaleProductCreateRes
 import capston.capston.saleProduct.dto.saleProductFindAll.SaleProductFindAllResponseDTO;
 import capston.capston.saleProduct.dto.saleProductFindId.SaleProductFindIdResponseDTO;
 import capston.capston.saleProduct.dto.saleProductFindmyDTO.SaleProductFindMyResponseDTO;
+import capston.capston.saleProduct.dto.saleProductOrderConfirmationDTO.SaleProductOrderConfirmationResponseDTO;
 import capston.capston.saleProduct.model.SaleProduct;
 import capston.capston.saleProduct.repository.SaleProductRepository;
 import capston.capston.user.model.User;
@@ -44,6 +45,12 @@ public class SaleProductService implements SaleProductCommendServiceImpl, SalePr
         return saleProductRepository.findAll();
     }
 
+
+    @Override
+    public List<SaleProduct> findNotOfferProductAll() {
+        return saleProductRepository.findNoneOfferProduct();
+    }
+
     @Override
     public SaleProduct findById(long id) {
         return saleProductRepository.findById(id).orElseThrow(()-> new CustomException(ErrorCode.NotFoundProductException));
@@ -70,7 +77,7 @@ public class SaleProductService implements SaleProductCommendServiceImpl, SalePr
 
     @Override
     public List<SaleProductFindAllResponseDTO> findAllProduct() {
-        List<SaleProduct> saleProducts = findAll();
+        List<SaleProduct> saleProducts = findNotOfferProductAll();
 
         List<SaleProductFindAllResponseDTO> saleProductFindAllResponseDTOS = new ArrayList<>();
         for(SaleProduct saleProduct : saleProducts){
@@ -83,6 +90,20 @@ public class SaleProductService implements SaleProductCommendServiceImpl, SalePr
     public SaleProductFindIdResponseDTO findProductId(long id) {
         SaleProduct saleProduct = findById(id);
         return SaleProductFindIdResponseDTO.toSaleProductFindIdResponseDTO(saleProduct);
+    }
+
+    @Override
+    public SaleProductOrderConfirmationResponseDTO orderConfirmation(long productId, long offerPrice, Authentication authentication) {
+        SaleProduct saleProduct = findById(productId);
+        if(saleProduct.isOfferState()){ // 상품이 확정 되어 있으면
+            throw new CustomException(ErrorCode.BadConfirmationException);
+        }
+        User user = ((PrincipalDetails)authentication.getPrincipal()).getUser();
+        saleProduct.confirmationProduct(offerPrice,user.getStudentId());
+        save(saleProduct);
+
+        return  SaleProductOrderConfirmationResponseDTO.toSaleProductOrderConfirmationResponseDTO(saleProduct);
+
     }
 
 

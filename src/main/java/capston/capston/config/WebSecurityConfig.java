@@ -88,9 +88,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/saleproduct/find/all").permitAll() // 판매 상품 모두 보기
                 .antMatchers("/api/reissuance/refreshToken").permitAll()// refreshtoken  재 발급
                 .antMatchers("/api/locker/*").permitAll()
+                .antMatchers("/api/locker/*/*").permitAll()
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
+                .antMatchers("/api/order/create/*").permitAll()
+                .antMatchers("/api/kakao/ready/*").permitAll()
+                .antMatchers("/api/kakao/*/success").permitAll()
                 .antMatchers("/api/saleproduct/*").hasRole("USER")
                 .antMatchers("/api/user/*").hasRole("USER")
+                .antMatchers("/api/web/locker/*").hasRole("USER")
+                .antMatchers("/api/locker/buyer/prodcut/*").permitAll()
+                .antMatchers("/api/locker/sale/password/check/*/*").permitAll()
+                .antMatchers("/api/locker/buyer/password/check/*/*").permitAll()
+                .antMatchers("/api/locker/sale/product/*").permitAll()
+                .antMatchers("/api/priceoffers/create/*").hasRole("USER")
+                .antMatchers("/api/saleproduct/order/confirmation/*").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());

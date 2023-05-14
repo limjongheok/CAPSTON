@@ -10,6 +10,7 @@ import capston.capston.user.dto.userJoinDTO.UserJoinResponseDTO;
 import capston.capston.user.model.User;
 import capston.capston.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserServiceCommand implements UserServiceCommandImpl,UserServiceQueryImpl {
+@Slf4j
+public class UserService implements UserServiceCommandImpl,UserServiceQueryImpl {
     private final UserRepository userRepository;
     private final EmailAuthenticationService emailAuthenticationService;
 
@@ -30,9 +32,13 @@ public class UserServiceCommand implements UserServiceCommandImpl,UserServiceQue
         userRepository.save(user);
     }
 
-
-
-
+    @Override
+    public User findByStudentId(String studentId) {
+        User user = userRepository.findByStudentId(studentId).orElseThrow(
+                ()-> new CustomException(ErrorCode.NotFoundUserException)
+        );
+        return user;
+    }
 
 
     //userCommand

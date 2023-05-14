@@ -8,10 +8,11 @@ import capston.capston.user.dto.emailAuthenticationDTO.SendAuthCodeResponseDTO;
 import capston.capston.user.dto.userInfoDTO.UserInfoResponseDTO;
 import capston.capston.user.dto.userJoinDTO.UserJoinResponseDTO;
 import capston.capston.user.service.EmailAuthenticationService;
-import capston.capston.user.service.UserServiceCommandImpl;
+import capston.capston.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +33,8 @@ public class UserController {
 
 
     private final EmailAuthenticationService emailAuthenticationService;
-    private final UserServiceCommandImpl userService;
+    private final UserService userService;
+
 
     // 인증 코드 보내기
     @PostMapping("/api/email/send/auth")
@@ -56,8 +58,7 @@ public class UserController {
         return ResponseEntity.ok().body(createResponse(userJoinResponseDTO,"회원가입에 성공했습니다."));
     }
 
-    // user정보 조회
-
+    // user 정보 조회
     @GetMapping("/api/user/info")
     public ResponseEntity<?> userInfo(Authentication authentication){
         UserInfoResponseDTO userInfoResponseDTO = userService.userInfo(authentication);

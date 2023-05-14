@@ -8,7 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SaleProductRepository extends JpaRepository<SaleProduct,Long> {
+public interface SaleProductRepository extends JpaRepository<SaleProduct,Long>, SaleProductRepositoryCustom {
+
+    @Override
+    List<SaleProduct> findNoneOfferProduct();
 
     List<SaleProduct> findAllByUser(User user);
 }

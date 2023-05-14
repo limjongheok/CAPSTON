@@ -2,6 +2,7 @@ package capston.capston.saleProduct.model;
 
 
 import capston.capston.jpaAuditing.BaseTimeEntity;
+import capston.capston.order.model.Order;
 import capston.capston.user.model.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,25 +25,39 @@ public class SaleProduct extends BaseTimeEntity {
     @JoinColumn(name = "User_Id")
     private User user;
 
+    @OneToOne(mappedBy = "saleProduct")
+    private Order order;
 
-    @NotNull
+
+    @Column(nullable = false)
     private String title;
 
-    @NotNull
+    @Column(nullable = false)
     private String content;
 
-    @NotNull
+    @Column(nullable = false)
     private String saleProductName;
 
-    @NotNull
+    @Column(nullable = false)
     private int amount;
 
-    @NotNull
+    @Column(nullable = false)
     private String imgUrl;
+
+    @Column(nullable = false)
+    private  boolean offerState;
+
+    @Column(nullable = true)
+    private long offerPrice;
+
+    @Column(nullable = true)
+    private String offerStudentID;
+
+
 
 
     @Builder
-    public SaleProduct(long id, User user, String title, String content, String saleProductName, int amount, String imgUrl) {
+    public SaleProduct(long id, User user, String title, String content, String saleProductName, int amount, String imgUrl,boolean offerState, long offerPrice, String offerStudentID) {
         this.id = id;
         this.user = user;
         this.title = title;
@@ -50,5 +65,25 @@ public class SaleProduct extends BaseTimeEntity {
         this.saleProductName = saleProductName;
         this.amount = amount;
         this.imgUrl = imgUrl;
+        this.offerState = offerState;
+        this.offerPrice = offerPrice;
+        this.offerStudentID = offerStudentID;
+    }
+    public void confirmationProduct(long offerPrice, String offerStudentID){
+        confirmation(offerPrice,offerStudentID);
+    }
+
+    public void order(Order order){
+        orderProduct(order);
+    }
+
+    private  void confirmation(long offerPrice, String offerStudentID){
+        this.offerState = true;
+        this.offerStudentID = offerStudentID;
+        this.offerPrice = offerPrice;
+    }
+
+    private void orderProduct(Order order){
+        this.order = order;
     }
 }

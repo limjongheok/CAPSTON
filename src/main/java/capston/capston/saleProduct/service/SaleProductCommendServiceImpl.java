@@ -5,6 +5,7 @@ import capston.capston.saleProduct.dto.saleProductCreateDTO.SaleProductCreateRes
 import capston.capston.saleProduct.dto.saleProductFindAll.SaleProductFindAllResponseDTO;
 import capston.capston.saleProduct.dto.saleProductFindId.SaleProductFindIdResponseDTO;
 import capston.capston.saleProduct.dto.saleProductFindmyDTO.SaleProductFindMyResponseDTO;
+import capston.capston.saleProduct.dto.saleProductOrderConfirmationDTO.SaleProductOrderConfirmationResponseDTO;
 import capston.capston.saleProduct.model.SaleProduct;
 import org.springframework.security.core.Authentication;
 
@@ -19,4 +20,5 @@ public interface SaleProductCommendServiceImpl {
     List<SaleProductFindAllResponseDTO> findAllProduct();
 
     SaleProductFindIdResponseDTO findProductId(long id);
+    SaleProductOrderConfirmationResponseDTO orderConfirmation(long productId, long offerPrice, Authentication authentication);
 }

@@ -26,7 +26,7 @@ public class Locker extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SaleProduct_ID")
-    private SaleProduct saleProduct; // 구매 유저
+    private SaleProduct saleProduct; // 판매 유저
 
 
 
@@ -37,8 +37,6 @@ public class Locker extends BaseTimeEntity {
     @Column(nullable = false)
     private  int buildingNum; // 대학 번호
 
-    @Column(nullable = false)
-    private boolean checkDoor; // 문잠김 체크
 
     @Column(nullable = false)
     private boolean checkProduct; // 물품 여부 체크
@@ -47,13 +45,54 @@ public class Locker extends BaseTimeEntity {
     private  boolean checkAssign; //  배정 여부 체크
 
     @Builder
-    public Locker(User purchasingUser, SaleProduct saleProduct, String lockerPassword, int buildingNum, boolean checkDoor, boolean checkProduct, boolean checkAssign) {
+    public Locker(User purchasingUser, SaleProduct saleProduct, String lockerPassword, int buildingNum, boolean checkProduct, boolean checkAssign) {
         this.purchasingUser = purchasingUser;
         this.saleProduct = saleProduct;
         this.lockerPassword = lockerPassword;
         this.buildingNum = buildingNum;
-        this.checkDoor = checkDoor;
         this.checkProduct = checkProduct;
         this.checkAssign = checkAssign;
     }
+
+    // 사물 함 배정 시키기
+    public void assignLocker(User user, SaleProduct saleProduct){
+        assignCheckAssign();
+        assignPurchasingUser(user);
+        assignSaleProduct(saleProduct);
+        assignLockerPassword();
+    }
+    public void putProductLocker(){
+        putProduct();
+
+    }
+    public void pushProductLocker(){
+        pushProduct();
+    }
+
+
+
+    // 배정하기
+    private void assignCheckAssign(){
+        this.checkAssign = true;
+    }
+
+    // 구매 유저 넣기
+    private void assignPurchasingUser(User user){
+        this.purchasingUser = user;
+    }
+
+    // 판매
+    private  void assignSaleProduct(SaleProduct saleProduct){
+        this.saleProduct = saleProduct;
+    }
+
+    private  void assignLockerPassword(){
+        this.lockerPassword = String.valueOf((int)(Math.random()*9999)+1000);
+    }
+
+    private  void putProduct(){
+        this.checkProduct = true;
+    }
+
+    private void pushProduct(){this.checkProduct = false;}
 }
