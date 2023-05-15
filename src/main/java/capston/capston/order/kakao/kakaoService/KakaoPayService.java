@@ -1,8 +1,11 @@
 package capston.capston.order.kakao.kakaoService;
 
+import capston.capston.Error.CustomException;
+import capston.capston.Error.ErrorCode;
 import capston.capston.order.kakao.kakaoDTO.KakaoApproveResponseDTO;
 import capston.capston.order.kakao.kakaoDTO.KakaoReadyResponseDTO;
 import capston.capston.order.model.Order;
+import capston.capston.order.service.OrderService;
 import capston.capston.saleProduct.service.SaleProductService;
 import capston.capston.user.model.User;
 import capston.capston.user.service.UserService;
@@ -25,6 +28,7 @@ public class KakaoPayService {
     private static final String cid = "TC0ONETIME"; // 가맹점 테스트 코드
     private final SaleProductService saleProductService;
     private  final UserService userService;
+    private final OrderService orderService;
 
     @Value("${kakao.adminKey}")
     private  String adminKey;
@@ -37,6 +41,9 @@ public class KakaoPayService {
     public String kakaoPayReady(long productId) {
         Order order = saleProductService.findById(productId).getOrder();
 
+        if(order.isOrderStatus()){
+            throw new CustomException(ErrorCode.BadSuccessOrderException);
+        }
 
 
         // 카카오페이 요청 양식
@@ -90,8 +97,12 @@ public class KakaoPayService {
                 requestEntity,
                 KakaoApproveResponseDTO.class);
 
+
+        order.successOrder();
+        orderService.save(order);
         User saleUser = order.getSaleProduct().getUser();
         saleUser.saleUserPoint(approveResponse.getAmount().getTotal());
+        userService.save(saleUser);
 
         return approveResponse;
     }

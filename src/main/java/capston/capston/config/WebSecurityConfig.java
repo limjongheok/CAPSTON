@@ -102,6 +102,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/locker/sale/product/*").permitAll()
                 .antMatchers("/api/priceoffers/create/*").hasRole("USER")
                 .antMatchers("/api/saleproduct/order/confirmation/*").hasRole("USER")
+                .antMatchers("api/order/*").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());

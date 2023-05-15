@@ -14,14 +14,14 @@ public class SaleProductRepositoryImpl implements SaleProductRepositoryCustom {
         this.jpaQueryFactory = jpaQueryFactory;
     }
 
-    QSaleProduct SaleProduct = QSaleProduct.saleProduct;
+    QSaleProduct saleProduct = QSaleProduct.saleProduct;
 
-    private BooleanExpression NotOfferProduct(){
-        return  SaleProduct.offerState.isFalse();
+    private BooleanExpression notOfferProduct(){
+        return  saleProduct.offerState.isFalse();
     }
 
     @Override
     public List<SaleProduct> findNoneOfferProduct() {
-        return (List<SaleProduct>) jpaQueryFactory.from(SaleProduct).where(NotOfferProduct()).fetch();
+        return (List<SaleProduct>) jpaQueryFactory.from(saleProduct).where(notOfferProduct()).fetch();
     }
 }

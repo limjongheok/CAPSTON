@@ -1,4 +1,4 @@
-package capston.capston.order.orderCreateDTO;
+package capston.capston.order.dto.OrderCreateDTO;
 
 import capston.capston.order.model.Order;
 import lombok.Builder;

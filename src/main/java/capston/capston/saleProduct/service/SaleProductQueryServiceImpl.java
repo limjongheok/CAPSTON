@@ -1,5 +1,6 @@
 package capston.capston.saleProduct.service;
 
+import capston.capston.order.model.Order;
 import capston.capston.saleProduct.dto.saleProductFindId.SaleProductFindIdResponseDTO;
 import capston.capston.saleProduct.model.SaleProduct;
 import capston.capston.user.model.User;
@@ -18,4 +19,5 @@ public interface SaleProductQueryServiceImpl {
     List<SaleProduct> findNotOfferProductAll();
 
     SaleProduct findById(long id);
+
 }

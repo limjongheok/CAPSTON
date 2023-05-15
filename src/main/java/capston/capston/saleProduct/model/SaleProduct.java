@@ -53,11 +53,14 @@ public class SaleProduct extends BaseTimeEntity {
     @Column(nullable = true)
     private String offerStudentID;
 
+    @Column(nullable = false)
+    private boolean orderStatus;
+
 
 
 
     @Builder
-    public SaleProduct(long id, User user, String title, String content, String saleProductName, int amount, String imgUrl,boolean offerState, long offerPrice, String offerStudentID) {
+    public SaleProduct(long id, User user, String title, String content, String saleProductName, int amount, String imgUrl,boolean offerState, long offerPrice, String offerStudentID,boolean orderStatus) {
         this.id = id;
         this.user = user;
         this.title = title;
@@ -68,6 +71,7 @@ public class SaleProduct extends BaseTimeEntity {
         this.offerState = offerState;
         this.offerPrice = offerPrice;
         this.offerStudentID = offerStudentID;
+        this.orderStatus = false;
     }
     public void confirmationProduct(long offerPrice, String offerStudentID){
         confirmation(offerPrice,offerStudentID);
@@ -85,5 +89,12 @@ public class SaleProduct extends BaseTimeEntity {
 
     private void orderProduct(Order order){
         this.order = order;
+    }
+
+    public  void orderSuccessProduct(){
+        orderSuccess();
+    }
+    private void orderSuccess(){
+        this.orderStatus = true;
     }
 }
