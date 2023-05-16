@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class LockerPasswordCheckResponseDTO {
-    private long id; // 사물함 아이디
+    private long productId; // 사물함 아이디
     private  String purchasingUserName; // 구매 유저 이름
     private  String saleProductUserName; // 판매 유저 이름
     private  int buildingNum;
@@ -18,8 +18,8 @@ public class LockerPasswordCheckResponseDTO {
     private  String lockerPassword;
 
     @Builder
-    private LockerPasswordCheckResponseDTO(long id, String purchasingUserName, String saleProductUserName, int buildingNum, boolean checkDoor, boolean checkProduct, boolean checkAssign, String lockerPassword) {
-        this.id = id;
+    private LockerPasswordCheckResponseDTO(long productId, String purchasingUserName, String saleProductUserName, int buildingNum, boolean checkDoor, boolean checkProduct, boolean checkAssign, String lockerPassword) {
+        this.productId = productId;
         this.purchasingUserName = purchasingUserName;
         this.saleProductUserName = saleProductUserName;
         this.buildingNum = buildingNum;
@@ -31,7 +31,7 @@ public class LockerPasswordCheckResponseDTO {
 
     public static LockerPasswordCheckResponseDTO toLockerPasswordCheckResponseDTO(Locker locker){
         return LockerPasswordCheckResponseDTO.builder()
-                .id(locker.getId())
+                .productId(locker.getSaleProduct().getId())
                 .purchasingUserName(locker.getPurchasingUser().getUserName())
                 .saleProductUserName(locker.getSaleProduct().getUser().getUserName())
                 .buildingNum(locker.getBuildingNum())

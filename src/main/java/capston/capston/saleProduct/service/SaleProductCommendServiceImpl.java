@@ -20,5 +20,5 @@ public interface SaleProductCommendServiceImpl {
     List<SaleProductFindAllResponseDTO> findAllProduct();
 
     SaleProductFindIdResponseDTO findProductId(long id);
-    SaleProductOrderConfirmationResponseDTO orderConfirmation(long productId, long offerPrice, Authentication authentication);
+    SaleProductOrderConfirmationResponseDTO orderConfirmation(String buyStudentId, long productId, long offerPrice, Authentication authentication);
 }

@@ -60,10 +60,10 @@ public class SaleProductController {
     }
 
     // 상품 주문 확정
-    @PutMapping("/api/saleproduct/order/confirmation/{productId}")
-    public ResponseEntity<?> orderConfirmation(@PathVariable(value = "productId") long productId, @RequestBody SaleProductOrderConfirmationRequestDTO saleProductOrderConfirmationRequestDTO, Authentication authentication){
+    @PutMapping("/api/saleproduct/order/confirmation/{buyStudentId}/{productId}")
+    public ResponseEntity<?> orderConfirmation(@PathVariable(value = "buyStudentId") String buyStudentId, @PathVariable(value = "productId") long productId, @RequestBody SaleProductOrderConfirmationRequestDTO saleProductOrderConfirmationRequestDTO, Authentication authentication){
 
-        SaleProductOrderConfirmationResponseDTO saleProductOrderConfirmationResponseDTO = saleProductService.orderConfirmation(productId, saleProductOrderConfirmationRequestDTO.getOfferPrice(), authentication);
+        SaleProductOrderConfirmationResponseDTO saleProductOrderConfirmationResponseDTO = saleProductService.orderConfirmation(buyStudentId,productId, saleProductOrderConfirmationRequestDTO.getOfferPrice(), authentication);
 
         return ResponseEntity.ok().body(createResponse(saleProductOrderConfirmationResponseDTO,"상품 주문이 확정 되었습니다."));
     }

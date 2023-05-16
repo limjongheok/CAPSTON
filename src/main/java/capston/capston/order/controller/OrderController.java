@@ -2,6 +2,7 @@ package capston.capston.order.controller;
 
 import capston.capston.order.dto.orderfindDTO.OrderResponseDTO;
 import capston.capston.order.kakao.kakaoDTO.KakaoApproveResponseDTO;
+import capston.capston.order.kakao.kakaoDTO.KakaoReadyResponseDTO;
 import capston.capston.order.kakao.kakaoService.KakaoPayService;
 import capston.capston.order.dto.OrderCreateDTO.OrderCreateResponseDTO;
 import capston.capston.order.service.OrderService;
@@ -36,9 +37,9 @@ public class OrderController {
 
     // 카카오 주문 준비
     @GetMapping("/api/kakao/ready/{productId}")
-    public ResponseEntity readyToKakaoPay(@PathVariable (value = "productId") long productId) {
-        String url = kakaoPayService.kakaoPayReady(productId);
-        return ResponseEntity.ok().body(url);
+    public ResponseEntity<?> readyToKakaoPay(@PathVariable (value = "productId") long productId) {
+        KakaoReadyResponseDTO kakaoReadyResponseDTO = kakaoPayService.kakaoPayReady(productId);
+        return ResponseEntity.ok().body(createResponse(kakaoReadyResponseDTO,"카카오페이 준비 완료"));
     }
 
     // 카카오 주문 성공

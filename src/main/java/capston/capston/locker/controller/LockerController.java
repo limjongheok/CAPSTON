@@ -43,11 +43,11 @@ public class LockerController {
     }
 
     // 사물함 배정
-    @GetMapping("/api/web/locker/assign/{studentId}/{productId}/{lockerId}")
-    public ResponseEntity<?> assignLocker(@PathVariable(value = "studentId") String studentId, @PathVariable(value = "productId") long productId, @PathVariable(value = "lockerId") long lockerId, Authentication authentication){
+    @GetMapping("/api/web/locker/assign/{buyStudentId}/{productId}/{lockerId}")
+    public ResponseEntity<?> assignLocker(@PathVariable(value = "buyStudentId") String buyStudentId, @PathVariable(value = "productId") long productId, @PathVariable(value = "lockerId") long lockerId, Authentication authentication){
 
-        LockerAssignResponseDTO lockerAssignResponseDTO = lockerService.assignLocker(studentId,productId,lockerId);
-        //messageService.sendAssignBuyerLocker(authentication,lockerId);
+        LockerAssignResponseDTO lockerAssignResponseDTO = lockerService.assignLocker(buyStudentId,productId,lockerId,authentication);
+        //messageService.sendAssignBuyerLocker(buyStudentId,lockerId);
         //messageService.sendAssignSaleLocker(productId,lockerId);
         return ResponseEntity.ok().body(createResponse(lockerAssignResponseDTO,"사물함 배정에 성공하였습니다."));
     }

@@ -3,6 +3,7 @@ package capston.capston.locker.service;
 import capston.capston.Error.CustomException;
 import capston.capston.Error.ErrorCode;
 
+import capston.capston.auth.PrincipalDetails;
 import capston.capston.locker.dto.lockerAssignDTO.LockerAssignResponseDTO;
 import capston.capston.locker.dto.lockerCreateDTO.LockerCreateRequestDTO;
 import capston.capston.locker.dto.lockerCreateDTO.LockerCreateResponseDTO;
@@ -18,6 +19,7 @@ import capston.capston.user.model.User;
 import capston.capston.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -80,15 +82,22 @@ public class LockerService implements LockerServiceCommandImpl, LockerServiceQue
     // 물품 배정하기
     // 배정 후 구매자 판매자 에게 문자 보내기
     @Override
-    public LockerAssignResponseDTO assignLocker(String studentId, long productId, long lockerId) {
+    public LockerAssignResponseDTO assignLocker(String buyStudentId, long productId, long lockerId, Authentication authentication) {
         Locker locker = findByIdLocker(lockerId); // 배정 받지 않은 사물함 찾기
         if(locker.isCheckAssign()){
             // 사물함이 이미 배정 받았다면
             throw  new CustomException(ErrorCode.BadAssignLockerException);
         }
+
+        User user = ((PrincipalDetails)authentication.getPrincipal()).getUser(); //  로그인유저
         SaleProduct saleProduct = saleProductService.findById(productId);// 상품 찾기
-        User user = userService.findByStudentId(studentId);
-        locker.assignLocker(user,saleProduct);
+
+        if(!saleProduct.getUser().getStudentId().equals(user.getStudentId())){
+            // 로그인 유저가 판매유저가 아닌 경우
+            throw  new CustomException(ErrorCode.BadNotSaleUserException);
+        }
+        User buyUser = userService.findByStudentId(buyStudentId); // 구매 유저 찾기
+        locker.assignLocker(buyUser,saleProduct);
         save(locker);
         return LockerAssignResponseDTO.toLockerAssignResponseDTO(locker);
     }

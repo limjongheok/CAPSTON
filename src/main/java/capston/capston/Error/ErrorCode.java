@@ -21,6 +21,7 @@ public enum ErrorCode {
     BadNonConfirmationException(400,"BadNonConfirmationException","상품 주문 제시가 확정 되어있지 않았습니다."),
     BadConfirmationException(400,"BadConfirmationException","이미 상품 주문 제시가 확정 되었습니다."),
     BadSuccessOrderException(400,"BadSuccessOrderException","이미 주문이 된 상품입니다."),
+    BadNotSaleUserException(400,"BadNotSaleUserException","판매 유저만 접근 할 수 있습니다."),
     UnauthorizedException(401,"UnauthorizedException","허용되지 않는 접근입니다."),
 
     UnauthorizedEmailException(401,"UnauthorizedEmailException","인증되지 않은 이메일입니다."),

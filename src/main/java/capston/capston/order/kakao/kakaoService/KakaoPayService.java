@@ -38,7 +38,7 @@ public class KakaoPayService {
 
 
 
-    public String kakaoPayReady(long productId) {
+    public KakaoReadyResponseDTO kakaoPayReady(long productId) {
         Order order = saleProductService.findById(productId).getOrder();
 
         if(order.isOrderStatus()){
@@ -69,7 +69,7 @@ public class KakaoPayService {
                 requestEntity,
                 KakaoReadyResponseDTO.class);
 
-        return kakaoReady != null ? kakaoReady.getNext_redirect_pc_url() : null;
+        return kakaoReady != null ? kakaoReady : null;
     }
 
 

@@ -13,6 +13,7 @@ import capston.capston.saleProduct.dto.saleProductOrderConfirmationDTO.SaleProdu
 import capston.capston.saleProduct.model.SaleProduct;
 import capston.capston.saleProduct.repository.SaleProductRepository;
 import capston.capston.user.model.User;
+import capston.capston.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -29,6 +30,7 @@ import java.util.List;
 public class SaleProductService implements SaleProductCommendServiceImpl, SaleProductQueryServiceImpl{
 
     private final SaleProductRepository saleProductRepository;
+    private final UserService userService;
 
 
     @Override
@@ -95,14 +97,21 @@ public class SaleProductService implements SaleProductCommendServiceImpl, SalePr
         return SaleProductFindIdResponseDTO.toSaleProductFindIdResponseDTO(saleProduct);
     }
 
+    // 상품확정은 판매자만 할 수 있다.
     @Override
-    public SaleProductOrderConfirmationResponseDTO orderConfirmation(long productId, long offerPrice, Authentication authentication) {
+    public SaleProductOrderConfirmationResponseDTO orderConfirmation(String buyStudentId, long productId, long offerPrice, Authentication authentication) {
+
+        User user = ((PrincipalDetails)authentication.getPrincipal()).getUser(); // 로그인 사람
         SaleProduct saleProduct = findById(productId);
         if(saleProduct.isOfferState()){ // 상품이 확정 되어 있으면
             throw new CustomException(ErrorCode.BadConfirmationException);
         }
-        User user = ((PrincipalDetails)authentication.getPrincipal()).getUser();
-        saleProduct.confirmationProduct(offerPrice,user.getStudentId());
+        if(!user.getStudentId().equals(saleProduct.getUser().getStudentId())){
+            //현재 로그인한 인원이 판매자가 아닐 경우
+            throw new CustomException(ErrorCode.BadNotSaleUserException);
+        }
+
+        saleProduct.confirmationProduct(offerPrice,buyStudentId);
         save(saleProduct);
 
         return  SaleProductOrderConfirmationResponseDTO.toSaleProductOrderConfirmationResponseDTO(saleProduct);
