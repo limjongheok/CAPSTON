@@ -47,8 +47,8 @@ public class LockerController {
     public ResponseEntity<?> assignLocker(@PathVariable(value = "buyStudentId") String buyStudentId, @PathVariable(value = "productId") long productId, @PathVariable(value = "lockerId") long lockerId, Authentication authentication){
 
         LockerAssignResponseDTO lockerAssignResponseDTO = lockerService.assignLocker(buyStudentId,productId,lockerId,authentication);
-        //messageService.sendAssignBuyerLocker(buyStudentId,lockerId);
-        //messageService.sendAssignSaleLocker(productId,lockerId);
+        messageService.sendAssignBuyerLocker(buyStudentId,lockerId);
+        messageService.sendAssignSaleLocker(productId,lockerId);
         return ResponseEntity.ok().body(createResponse(lockerAssignResponseDTO,"사물함 배정에 성공하였습니다."));
     }
 

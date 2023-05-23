@@ -55,7 +55,7 @@ public class KakaoPayService {
         parameters.add("quantity", "1");
         parameters.add("total_amount", String.valueOf(order.getSaleProduct().getOfferPrice()));
         parameters.add("tax_free_amount", "0");
-        parameters.add("approval_url", "http://localhost:8080/api/kakao"+"/"+productId+"/success"); // 성공 시 redirect url
+        parameters.add("approval_url", "http://59.26.59.60:5000/payment_inprogess?productId="+productId); // 성공 시 redirect url
         parameters.add("cancel_url", "http://localhost:8080/payment/cancel"); // 취소 시 redirect url
         parameters.add("fail_url", "http://localhost:8080/payment/fail"); // 실패 시 redirect url
 

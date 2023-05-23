@@ -92,7 +92,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
                 .antMatchers("/api/order/create/*").permitAll()
                 .antMatchers("/api/kakao/ready/*").permitAll()
-                .antMatchers("/api/kakao/*/success").permitAll()
+                .antMatchers("/api/kakao/success/*").permitAll()
                 .antMatchers("/api/saleproduct/*").hasRole("USER")
                 .antMatchers("/api/user/*").hasRole("USER")
                 .antMatchers("/api/web/locker/*").hasRole("USER")
@@ -102,7 +102,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/locker/sale/product/*").permitAll()
                 .antMatchers("/api/priceoffers/create/*").hasRole("USER")
                 .antMatchers("/api/saleproduct/order/confirmation/*").hasRole("USER")
-                .antMatchers("api/order/*").hasRole("USER")
+                .antMatchers("/api/order/*").hasRole("USER")
+                .antMatchers("/api/redirect").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());

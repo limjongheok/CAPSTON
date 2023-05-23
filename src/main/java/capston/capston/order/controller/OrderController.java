@@ -8,11 +8,14 @@ import capston.capston.order.dto.OrderCreateDTO.OrderCreateResponseDTO;
 import capston.capston.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +46,9 @@ public class OrderController {
     }
 
     // 카카오 주문 성공
-    @GetMapping("/api/kakao/{productId}/success")
+
+    // 카카오 주문 성공
+    @GetMapping("/api/kakao/success/{productId}")
     public ResponseEntity afterPayRequest(@PathVariable(value = "productId") long productId,@RequestParam("pg_token") String pgToken) {
 
         System.out.println(pgToken);
@@ -51,6 +56,7 @@ public class OrderController {
 
         return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);
     }
+
 
     // 내 판만 성공 조회
 
@@ -70,6 +76,13 @@ public class OrderController {
 
 
         return ResponseEntity.ok().body(createResponse(orderResponseDTOS,"구매 물품 성공 조회에 성공하였습니다."));
+    }
+    @GetMapping("/api/redirect")
+    public ResponseEntity<?> redirect() throws URISyntaxException {
+        URI redirectUri  =new URI("http://loaclhost:80/");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(redirectUri);
+        return  new ResponseEntity<>(redirectUri, HttpStatus.OK);
     }
     private Map<String,Object> createResponse(Object object, String msg){
         Map<String, Object> response = new HashMap<>();

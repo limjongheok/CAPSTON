@@ -71,6 +71,10 @@ dependencies {
 
 	// coolsms
 	implementation 'net.nurigo:sdk:4.2.7'
+
+	//thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
 }
 
 tasks.named('test') {
