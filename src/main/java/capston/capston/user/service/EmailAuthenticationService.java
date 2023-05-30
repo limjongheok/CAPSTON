@@ -79,7 +79,7 @@ public class EmailAuthenticationService {
         msgg += "</div>";
         message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
         // 보내는 사람의 이메일 주소, 보내는 사람 이름
-        message.setFrom(new InternetAddress("jjongbbang2@naver.com", "locker"));// 보내는 사람
+        message.setFrom(new InternetAddress("jjongbbang2@naver.com", "bit"));// 보내는 사람
 
         return message;
     }

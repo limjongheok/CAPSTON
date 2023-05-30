@@ -30,9 +30,9 @@ public class OrderController {
     // 주문 생성하기
     @PostMapping("/api/order/create/{productId}")
     public ResponseEntity<?> orderCreate(@PathVariable(value = "productId") long productId, Authentication authentication){
-        OrderCreateResponseDTO orderCreateResponseDTO = orderService.createOrder(productId, authentication);
-
-        return ResponseEntity.ok().body(createResponse(orderCreateResponseDTO,"주문생성이 완료되었습니다."));
+        orderService.createOrder(productId, authentication);
+        KakaoReadyResponseDTO kakaoReadyResponseDTO = kakaoPayService.kakaoPayReady(productId);
+        return ResponseEntity.ok().body(createResponse(kakaoReadyResponseDTO,"카카오페이 준비 완료"));
 
     }
 

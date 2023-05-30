@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main</title><!DOCTYPE html>
+
+</head>
+<body>
+<div id="cover">
+  <br><br>
+  <div style="text-align: center; margin-top: 150px; font-weight: 900; font-size: 3.5em;"><br>결제 완료되었습니다!</div>
+  <div class="center">
+    <br><br>
+    <div class="button" onclick="location.href = 'http://localhost:80'" style="text-align: center; font-weight: 500; font-size: 1.5em">
+      처음으로 돌아가기
+    </div>
+
+  </div>
+</div>
+</form>
+</body>
+<script>
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #fff;
+  }
+
+  body{
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Nato Sans KR', sans-serif;
+
+    background-color: #fff;
+  }
+
+
+
+  #cover{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    height: 1024px;
+    width: 600px;
+
+    border: 10px solid transparent; /*2*/
+    background: linear-gradient(45deg,#70b988, #70b787) border-box; /*3*/
+  }
+
+  .center{
+    position: absolute;
+    top: 65%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+  }
+
+
+  .button{
+    width: 400px;
+    height: 100px;
+
+    border-radius: 50px;
+
+    padding: 20px;
+    margin: 10px;
+    font-weight: 100;
+    font-size: 1em;
+    background-color: #fff;
+    color: black;
+  }
+
+  .button_no{
+    width: 400px;
+    height: 100px;
+
+    border-radius: 50px;
+
+    padding: 20px;
+    margin: 10px;
+    font-weight: 100;
+    font-size: 1em;
+    background-color: #f44336;
+    color: white;
+  }
+</style>
+</html>

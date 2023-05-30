@@ -69,7 +69,7 @@ public class LockerController {
     }
 
     // 물건 넣기
-    @PutMapping("/api/locker/sale/product/{lockerId}")
+    @GetMapping("/api/locker/sale/product/{lockerId}")
     public ResponseEntity<?> putProductLocker(@PathVariable(value = "lockerId") long lockerId){
         LockerProductResponseDTO lockerProductResponseDTO = lockerService.putProduct(lockerId);
         messageService.sendPutProductLocker(lockerId);
@@ -77,9 +77,10 @@ public class LockerController {
     }
 
     //물건 빼기
-    @PutMapping("/api/locker/buyer/prodcut/{lockerId}")
+    @GetMapping("/api/locker/buyer/product/{lockerId}")
     public ResponseEntity<?> pushProductLocker(@PathVariable(value = "lockerId") long lockerId){
         LockerProductResponseDTO lockerProductResponseDTO = lockerService.pushProduct(lockerId);
+        messageService.sendPushProductLocker(lockerId);
         return ResponseEntity.ok().body(createResponse(lockerProductResponseDTO,"물건 빼기가 성공 하였습니다."));
     }
 

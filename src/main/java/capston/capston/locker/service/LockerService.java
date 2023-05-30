@@ -138,7 +138,11 @@ public class LockerService implements LockerServiceCommandImpl, LockerServiceQue
     @Override
     public LockerProductResponseDTO pushProduct(long lockerId) {
         Locker locker = findByIdLocker(lockerId);
+        if(!locker.isCheckProduct()){
+            throw new CustomException(ErrorCode.BadPushLockerException);
+        }
         locker.pushProductLocker(); // 물건 빼기
+
         save(locker);
         return LockerProductResponseDTO.toLockerPutProductResponseDTO(locker);
     }

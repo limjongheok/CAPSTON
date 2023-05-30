@@ -61,20 +61,32 @@ public class Locker extends BaseTimeEntity {
         assignSaleProduct(saleProduct);
         assignLockerPassword();
     }
+
+    // 사물함 열렸을시
     public void putProductLocker(){
         putProduct();
-
     }
+
+
+    //사물함잠겼을시
     public void pushProductLocker(){
         pushProduct();
+        unAssignCheck();
+        randomLockerPassword();
     }
 
 
+    private  void randomLockerPassword(){
+        this.lockerPassword = String.valueOf((int)(Math.random()*9999)+1000);
+    }
 
     // 배정하기
     private void assignCheckAssign(){
         this.checkAssign = true;
     }
+
+    // 배정 해제하기
+    private void unAssignCheck(){this.checkAssign = false;}
 
     // 구매 유저 넣기
     private void assignPurchasingUser(User user){

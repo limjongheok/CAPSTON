@@ -18,6 +18,7 @@ public enum ErrorCode {
     BadAssignLockerException(400,"BadAssignException","사물함이 이미 지정 되었습니다"),
     BadPasswordLockerException(400,"BadPasswordLockerException","사물함 번호가 틀렸습니다."),
     BadPutLockerException(400,"BadPutLockerException","사물함에 이미 물건이 있습니다."),
+    BadPushLockerException(400,"BadPutLockerException","사물함에 물건이 없습니다."),
     BadNonConfirmationException(400,"BadNonConfirmationException","상품 주문 제시가 확정 되어있지 않았습니다."),
     BadConfirmationException(400,"BadConfirmationException","이미 상품 주문 제시가 확정 되었습니다."),
     BadSuccessOrderException(400,"BadSuccessOrderException","이미 주문이 된 상품입니다."),

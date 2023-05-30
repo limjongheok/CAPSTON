@@ -57,12 +57,26 @@ public class MessageService {
 
     }
 
+    // 물건 넣을시 구매자 한테 문자 보내기
+    public SingleMessageSentResponse sendPushProductLocker(long lockerId){
+
+        Locker locker = lockerService.findByIdLocker(lockerId);
+        User sellUser = locker.getSaleProduct().getUser();
+        Message message = new Message();
+        message.setFrom("01029463517");
+        message.setTo(sellUser.getPhoneNumber()); // 구매자 폰 아이디
+        message.setText(locker.getBuildingNum()+" "+"건물" +" " + locker.getId() +" 번 사물함에 주문하신 책이 꺼내졌습니다.");
+        SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
+        return response;
+
+    }
+
     // 배정 사물함 문자 보내기
     private Message createAssignMessage(User user, Locker locker){
         Message message = new Message();
         message.setFrom("01029463517");
         message.setTo(user.getPhoneNumber()); // 구매자 폰 아이디
-        message.setText("사물함 배정에 성공 하였습니다. 사물함 번호는" +" "+ locker.getId() +"이며" +locker.getBuildingNum()+"번 건물입니다." + "사물함 비밀번호는" + " "+ locker.getLockerPassword() + "입니다.");
+        message.setText(locker.getBuildingNum()+" 건물 "+ locker.getId() +" 번 사물함 배정에 성공하였습니다."  + " 해당 사물함의 비밀번호는" + " "+ locker.getLockerPassword() + "입니다.");
         return  message;
     }
 }

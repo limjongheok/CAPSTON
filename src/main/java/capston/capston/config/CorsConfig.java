@@ -17,6 +17,7 @@ public class CorsConfig {
         config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedOrigin("http://localhost");
         config.addAllowedOrigin("http://59.26.59.60:5000");
+        config.addAllowedOrigin("http://59.26.59.60:8080");
         config.addAllowedOrigin("http://127.0.0.1:5000");
         config.addAllowedHeader("*"); // 모든 header 응답 허용
         config.addAllowedHeader("Access-Control-Allow-origin");
